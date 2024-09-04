@@ -10,7 +10,6 @@ import {
   tokenICOContract,
 } from "./constants";
 
-
 const STAKING_ADDRESS = process.env.NEXT_PUBLIC_STAKING_DAPP;
 const DEPOSIT_TOKEN = process.env.NEXT_PUBLIC_DEPOSIT_TOKEN;
 const REWARD_TOKEN = process.env.NEXT_PUBLIC_REWARD_TOKEN;
@@ -361,7 +360,6 @@ export const addTokenToMetamask = async (token) => {
     const tokenDecimals = await contract.decimals();
     const tokenAddress = await contract.address();
     const tokenSymbol = await contract.symbol();
-  
 
     try {
       const wasAdded = await window.ethereum.request({

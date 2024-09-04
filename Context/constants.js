@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import StakingABI from "./Staking.json";
+import StakingABI from "./StakingDapp.json";
 import TokenICOABI from "./TokenICO.json";
 import ERC20ABI from "./ERC20.json";
 
@@ -29,9 +29,13 @@ export const tokenContract = async () => {
       ERC20ABI.abi,
       signer
     );
+    console.log(contractReader);
     return contractReader;
   }
 };
+
+
+
 
 export const contract = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
@@ -45,7 +49,7 @@ export const contract = async () => {
       StakingABI.abi,
       signer
     );
-
+    console.log(contractReader);
     return contractReader;
   }
 };
