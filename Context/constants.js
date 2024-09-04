@@ -21,8 +21,13 @@ export const tokenContract = async () => {
   const provider = new ethers.providers.Web3Provider(window.ethereum);
   const { ethereum } = window;
 
+  console.log("If in");
+
   if (ethereum) {
+    console.log("If out");
+
     const signer = provider.getSigner();
+    console.log(signer, "This is signer");
 
     const contractReader = new ethers.Contract(
       DEPOSIT_TOKEN,
@@ -34,22 +39,24 @@ export const tokenContract = async () => {
   }
 };
 
-
-
-
 export const contract = async () => {
-  const provider = new ethers.providers.Web3Provider(window.ethereum);
   const { ethereum } = window;
-
+  const provider = new ethers.providers.Web3Provider(ethereum);
+  
+  console.log("line 45", provider);
   if (ethereum) {
     const signer = provider.getSigner();
+
+    console.log(signer, "This is signer");
 
     const contractReader = new ethers.Contract(
       STAKING_ADDRESS,
       StakingABI.abi,
       signer
     );
+
     console.log(contractReader);
+
     return contractReader;
   }
 };

@@ -1,7 +1,6 @@
 import { BigNumber, ethers } from "ethers";
 import toast from "react-hot-toast";
 
-// imported functions
 import {
   contract,
   tokenContract,
@@ -10,12 +9,12 @@ import {
   tokenICOContract,
 } from "./constants";
 
-const STAKING_ADDRESS = process.env.NEXT_PUBLIC_STAKING_DAPP;
+const STAKING_ADDRESS = process.env.NEXT_PUBLIC_STAKING;
 const DEPOSIT_TOKEN = process.env.NEXT_PUBLIC_DEPOSIT_TOKEN;
 const REWARD_TOKEN = process.env.NEXT_PUBLIC_REWARD_TOKEN;
-
-const notifySuccess = (msg) => toast.success(msg, { duration: 2000 });
-const notifyError = (msg) => toast.error(msg, { duration: 2000 });
+// const TOKEN_LOGO = process.env.
+const notifySuccess = (msg) => toast.success(msg, { duration: 4000 });
+const notifyError = (msg) => toast.error(msg, { duration: 4000 });
 
 // FUNCTIONS
 function convertTimestampToReadeable(timestamp) {
@@ -52,17 +51,24 @@ export const copyAddress = (text) => {
 };
 
 export async function contractData(address) {
-  try {
+
+   try {
+  
     const contractObj = await contract();
-
+    console.log("Pandit bhau");
+    
     const stakingTokenObj = await tokenContract();
-
+    const address = provider.getSigner();
+    console.log(address, "is xyz");
+    
     if (address) {
       const contractOwner = await contractObj.owner();
       const contractAddress = await contractObj.address();
 
       // NOTIFICATIONS
       const notifications = await contractObj.getNotification();
+
+      console.log("124", notifications);
 
       const notificationsArray = await Promise.all(
         notifications.map(
@@ -80,6 +86,7 @@ export async function contractData(address) {
 
       // POOL
       let poolInfoArray = [];
+
       const poolLength = await contractObj.poolCount();
       const length = poolLength.toNumber();
 
@@ -109,6 +116,8 @@ export async function contractData(address) {
         poolInfoArray.push(pool);
       }
 
+      console.log(poolInfoArray);
+
       const totalDepositAmount = poolInfoArray.reduce((total, pool) => {
         return total + parseFloat(pool.depositedAmount);
       }, 0);
@@ -136,6 +145,8 @@ export async function contractData(address) {
     return parseErrorMsg(error);
   }
 }
+
+// console.log(contractData)
 
 export async function deposit(poolID, amount, address) {
   try {
@@ -360,6 +371,7 @@ export const addTokenToMetamask = async (token) => {
     const tokenDecimals = await contract.decimals();
     const tokenAddress = await contract.address();
     const tokenSymbol = await contract.symbol();
+    // const tokenImage = await TOKEN_LOGO; // TODO => change it to env variables
 
     try {
       const wasAdded = await window.ethereum.request({
@@ -370,6 +382,7 @@ export const addTokenToMetamask = async (token) => {
             address: tokenAddress,
             symbol: tokenSymbol,
             decimals: tokenDecimals,
+            // image: tokenImage
           },
         },
       });
