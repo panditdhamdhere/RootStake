@@ -52,7 +52,7 @@ const index = () => {
 
   useEffect(() => {
     loadData();
-  }, [address]);
+  }, []);
 
   return (
     <div className="body-backgroundColor">

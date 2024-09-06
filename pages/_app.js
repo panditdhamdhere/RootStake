@@ -12,6 +12,7 @@ import {
 
 import { configureChains, createClient, WagmiConfig } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
+import { FaBullseye } from "react-icons/fa";
 
 // NETWORK SETUP
 const RootStockTestnetRPC = process.env.NEXT_PUBLIC_ROOTSTOCK_RPC_URL;

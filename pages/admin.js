@@ -39,7 +39,6 @@ const admin = () => {
         console.log(data);
         setPoolDetails(data);
       }
-      
 
       setLoader(false);
     }
@@ -47,7 +46,7 @@ const admin = () => {
 
   useEffect(() => {
     loadData();
-  }, []);
+  }, [address]);
 
   return (
     <div className="body-backgroundColor">

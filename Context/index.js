@@ -9,7 +9,7 @@ import {
   tokenICOContract,
 } from "./constants";
 
-const STAKING_ADDRESS = process.env.NEXT_PUBLIC_STAKING;
+const STAKING_ADDRESS = process.env.NEXT_PUBLIC_STAKING_DAPP;
 const DEPOSIT_TOKEN = process.env.NEXT_PUBLIC_DEPOSIT_TOKEN;
 const REWARD_TOKEN = process.env.NEXT_PUBLIC_REWARD_TOKEN;
 // const TOKEN_LOGO = process.env.
@@ -51,38 +51,50 @@ export const copyAddress = (text) => {
 };
 
 export async function contractData(address) {
-
-   try {
-  
+  try {
     const contractObj = await contract();
-    console.log("Pandit bhau");
-    
+    console.log(contractObj, "is obj");
+
     const stakingTokenObj = await tokenContract();
-    const address = provider.getSigner();
-    console.log(address, "is xyz");
-    
     if (address) {
+      console.log(address, "is address");
+      
       const contractOwner = await contractObj.owner();
-      const contractAddress = await contractObj.address();
+      const contractAddress = await contractObj.address;
 
       // NOTIFICATIONS
       const notifications = await contractObj.getNotification();
 
-      console.log("124", notifications);
+      // const notificationsArray = await Promise.all(
+      //   notifications.map(
+      //     async ({ poolID, amount, user, message, timestamp }) => {
+      //       return {
+      //         poolID: poolID.toNumber(),
+      //         amount: toEth(amount),
+      //         user: user,
+      //         message: message,
+      //         timestamp: convertTimestampToReadeable(timestamp),
+      //       };
+      //     }
+      //   )
+      // );
 
-      const notificationsArray = await Promise.all(
-        notifications.map(
-          async ({ poolID, amount, user, message, timestamp }) => {
-            return {
-              poolID: poolID.toNumber(),
-              amount: toEth(amount),
-              user: user,
-              message: message,
-              timestamp: convertTimestampToReadeable(timestamp),
-            };
-          }
+
+      const notificationsArray = Array.isArray(notifications)
+      ? await Promise.all(
+          notifications.map(
+            async ({ poolID, amount, user, message, timestamp }) => {
+              return {
+                poolID: poolID.toNumber(),
+                amount: toEth(amount),
+                user: user,
+                message: message,
+                timestamp: convertTimestampToReadeable(timestamp),
+              };
+            }
+          )
         )
-      );
+      : [];
 
       // POOL
       let poolInfoArray = [];
