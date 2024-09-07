@@ -75,7 +75,7 @@ export default function App({ Component, pageProps }) {
   });
 
   const wagmiClient = createClient({
-    autoConnect: false,
+    autoConnect: true,
     connectors,
     provider,
   });
