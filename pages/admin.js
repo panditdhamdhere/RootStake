@@ -34,7 +34,7 @@ const admin = () => {
       setLoader(true);
 
       if (address?.toLowerCase() == ADMIN_ADDRESS?.toLowerCase()) {
-        setCheckAdmin(true);
+        setCheckAdmin(false);
         const data = await contractData(address);
         console.log(data);
         setPoolDetails(data);

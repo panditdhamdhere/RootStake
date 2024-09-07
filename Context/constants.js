@@ -29,7 +29,6 @@ export const tokenContract = async () => {
       ERC20ABI.abi,
       signer
     );
-    console.log(contractReader);
     return contractReader;
   }
 };

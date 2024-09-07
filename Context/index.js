@@ -53,48 +53,28 @@ export const copyAddress = (text) => {
 export async function contractData(address) {
   try {
     const contractObj = await contract();
-    console.log(contractObj, "is obj");
-
     const stakingTokenObj = await tokenContract();
+
     if (address) {
-      console.log(address, "is address");
-      
       const contractOwner = await contractObj.owner();
       const contractAddress = await contractObj.address;
 
       // NOTIFICATIONS
       const notifications = await contractObj.getNotification();
 
-      // const notificationsArray = await Promise.all(
-      //   notifications.map(
-      //     async ({ poolID, amount, user, message, timestamp }) => {
-      //       return {
-      //         poolID: poolID.toNumber(),
-      //         amount: toEth(amount),
-      //         user: user,
-      //         message: message,
-      //         timestamp: convertTimestampToReadeable(timestamp),
-      //       };
-      //     }
-      //   )
-      // );
-
-
-      const notificationsArray = Array.isArray(notifications)
-      ? await Promise.all(
-          notifications.map(
-            async ({ poolID, amount, user, message, timestamp }) => {
-              return {
-                poolID: poolID.toNumber(),
-                amount: toEth(amount),
-                user: user,
-                message: message,
-                timestamp: convertTimestampToReadeable(timestamp),
-              };
-            }
-          )
+      const notificationsArray = await Promise.all(
+        notifications.map(
+          async ({ poolID, amount, user, message, timestamp }) => {
+            return {
+              poolID: poolID.toNumber(),
+              amount: toEth(amount),
+              user: user,
+              message: message,
+              timestamp: convertTimestampToReadeable(timestamp),
+            };
+          }
         )
-      : [];
+      );
 
       // POOL
       let poolInfoArray = [];
@@ -126,10 +106,9 @@ export async function contractData(address) {
         };
 
         poolInfoArray.push(pool);
+       
       }
-
       console.log(poolInfoArray);
-
       const totalDepositAmount = poolInfoArray.reduce((total, pool) => {
         return total + parseFloat(pool.depositedAmount);
       }, 0);
@@ -383,7 +362,7 @@ export const addTokenToMetamask = async (token) => {
     const tokenDecimals = await contract.decimals();
     const tokenAddress = await contract.address();
     const tokenSymbol = await contract.symbol();
-    // const tokenImage = await TOKEN_LOGO; // TODO => change it to env variables
+  
 
     try {
       const wasAdded = await window.ethereum.request({
@@ -394,7 +373,7 @@ export const addTokenToMetamask = async (token) => {
             address: tokenAddress,
             symbol: tokenSymbol,
             decimals: tokenDecimals,
-            // image: tokenImage
+           
           },
         },
       });
