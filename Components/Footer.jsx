@@ -24,7 +24,8 @@ const Footer = () => {
             </div>
 
             <p className="footer__tagline">
-              panditdhamdhere is great dev .kshdcskjcd
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Vitae
+              fugit temporibus, deleniti dicta sint consequuntur, itaque eius
             </p>
           </div>
           <div className="col-6 col-md-4 col-lg-3 col-xl-2 order-3 order-md-2 order-lg-2 order-xl-3 offset-md-2 offset-lg-0">

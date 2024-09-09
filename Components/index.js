@@ -5,7 +5,6 @@ import PoolsModel from "./PoolsModel";
 import HeroSection from "./HeroSection";
 import WithdrawModal from "./WithdrawModal";
 import Withdraw from "./Withdraw";
-import Partners from "./Partners";
 import Statistics from "./Statistics";
 import Token from "./Token";
 import Loader from "./Loader";
@@ -24,7 +23,6 @@ export {
   PoolsModel,
   WithdrawModal,
   Withdraw,
-  Partners,
   Statistics,
   Token,
   Notification,

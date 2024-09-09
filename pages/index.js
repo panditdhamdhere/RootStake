@@ -10,7 +10,6 @@ import {
   PoolsModel,
   WithdrawModal,
   Withdraw,
-  Partners,
   Statistics,
   Token,
   Loader,
@@ -75,7 +74,7 @@ const index = () => {
         poolDetails={poolDetails}
       />
       <Notification poolDetails={poolDetails} />
-      <Partners />
+     
       <Ask />
       <Footer setContactUs={setContactUs} />
 
